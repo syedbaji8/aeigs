@@ -1,12 +1,12 @@
 (function ($) {
   const slidesData = [
-    { title: 'Elderly Care Service', image: '../media/images/service-1.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
-    { title: '24Hr/7 Days Support', image: '../media/images/service-2.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
-    { title: 'Medical Care', image: '../media/images/service-3.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
-    { title: 'Personal Care', image: '../media/images/service-4.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
-    { title: 'Companionship', image: '../media/images/service-5.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
-    { title: 'Nursing Assistance', image: '../media/images/service-6.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
-    { title: 'Home Support', image: '../media/images/service-7.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' }
+    { title: 'Elderly Care Service', image: 'assets/media/images/service-1.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
+    { title: '24Hr/7 Days Support', image: 'assets/media/images/service-2.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
+    { title: 'Medical Care', image: 'assets/media/images/service-3.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
+    { title: 'Personal Care', image: 'assets/media/images/service-4.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
+    { title: 'Companionship', image: 'assets/media/images/service-5.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
+    { title: 'Nursing Assistance', image: 'assets/media/images/service-6.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
+    { title: 'Home Support', image: 'assets/media/images/service-7.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' }
   ];
 
   const $carousel = $('.service-carousel');
