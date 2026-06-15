@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CareGiver Slider</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --brand-purple:#4d2042;
+      --brand-purple-deep:#43203a;
+      --brand-gold:#c8a48f;
+      --brand-text:#ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      overflow-x: hidden;
+      font-family: 'Poppins', sans-serif;
+      background: #fff;
+    }
+
+    /* full-bleed wrapper */
+    .main-navigation-section,
+    .main-navigation-section .container-fluid,
+    .main-navigation-section .row,
+    .main-navigation-section article {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .care-slider {
+      position: relative;
+      width: 100vw;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .care-slider__viewport {
+      position: relative;
+      width: 100%;
+      min-height: 560px;
+      height: clamp(420px, 62vw, 760px);
+      overflow: hidden;
+      background: #1c1020;
+    }
+
+    .care-slider__slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(1.03);
+      transition: opacity 700ms ease, transform 900ms ease;
+      will-change: opacity, transform;
+    }
+
+    .care-slider__slide.is-active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1);
+      z-index: 2;
+    }
+
+    .care-slider__slide.is-leaving {
+      opacity: 0;
+      transform: scale(1.03);
+      z-index: 1;
+    }
+
+    .care-slider__image-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    .care-slider__image-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(43, 16, 38, 0.35) 0%, rgba(43, 16, 38, 0.14) 18%, rgba(43, 16, 38, 0) 40%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .care-slider__image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+      transform: scale(1.01);
+    }
+
+    .care-slider__overlay {
+      position: relative;
+      z-index: 3;
+      width: min(44%, 690px);
+      min-width: 360px;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(77, 32, 66, 0.97) 0%, rgba(65, 27, 57, 0.98) 100%);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      padding: clamp(28px, 4vw, 64px);
+      padding-left: clamp(26px, 4.2vw, 72px);
+      box-shadow: 18px 0 45px rgba(0,0,0,.12);
+    }
+
+    .care-slider__content {
+      width: 100%;
+      max-width: 520px;
+      opacity: 0;
+      transform: translateX(-40px);
+    }
+
+    .care-slider__slide.is-active .care-slider__content {
+      animation: flyInContent 900ms cubic-bezier(.2,.8,.2,1) forwards;
+    }
+
+    .care-slider__slide.is-exiting .care-slider__content {
+      animation: flyOutContent 420ms ease forwards;
+    }
+
+    .care-slider__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.82);
+      margin-bottom: 18px;
+      font-weight: 500;
+    }
+
+    .care-slider__eyebrow::before {
+      content:"";
+      width: 44px;
+      height: 2px;
+      background: var(--brand-gold);
+      display: inline-block;
+    }
+
+    .care-slider__title {
+      font-size: clamp(34px, 4vw, 64px);
+      line-height: 1.02;
+      font-weight: 800;
+      margin: 0 0 18px 0;
+      color: #fff;
+      letter-spacing: -.03em;
+    }
+
+    .care-slider__desc {
+      font-size: clamp(15px, 1.25vw, 19px);
+      line-height: 1.8;
+      color: rgba(255,255,255,.88);
+      margin: 0 0 30px 0;
+      max-width: 92%;
+      font-weight: 400;
+    }
+
+    .care-slider__actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .care-slider__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 0 30px;
+      border-radius: 0;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      transition: transform .25s ease, background-color .25s ease, color .25s ease, opacity .25s ease;
+      will-change: transform;
+    }
+
+    .care-slider__btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .care-slider__btn--primary {
+      background: var(--brand-gold);
+      color: #fff;
+    }
+
+    .care-slider__btn--secondary {
+      border: 1px solid rgba(255,255,255,.55);
+      color: #fff;
+      background: transparent;
+    }
+
+    .care-slider__nav {
+      position: absolute;
+      z-index: 6;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 58px;
+      height: 58px;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: rgba(255,255,255,.18);
+      color: #fff;
+      transition: background-color .25s ease, transform .25s ease, opacity .25s ease;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .care-slider__nav:hover {
+      background: rgba(255,255,255,.28);
+      transform: translateY(-50%) scale(1.04);
+    }
+
+    .care-slider__nav--prev {
+      left: 22px;
+    }
+
+    .care-slider__nav--next {
+      right: 22px;
+    }
+
+    .care-slider__nav i {
+      font-size: 17px;
+    }
+
+    .care-slider__progress {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 4px;
+      background: rgba(255,255,255,.12);
+      z-index: 6;
+      overflow: hidden;
+    }
+
+    .care-slider__progress-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--brand-gold);
+      transition: width 300ms linear;
+    }
+
+    .care-slider__counter {
+      position: absolute;
+      right: 20px;
+      bottom: 18px;
+      z-index: 6;
+      color: rgba(255,255,255,.8);
+      font-size: 14px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      user-select: none;
+      background: rgba(0,0,0,.15);
+      padding: 8px 12px;
+    }
+
+    @keyframes flyInContent {
+      0%   { opacity: 0; transform: translateX(-60px); filter: blur(6px); }
+      100% { opacity: 1; transform: translateX(0); filter: blur(0); }
+    }
+
+    @keyframes flyOutContent {
+      0%   { opacity: 1; transform: translateX(0); filter: blur(0); }
+      100% { opacity: 0; transform: translateX(55px); filter: blur(6px); }
+    }
+
+    /* Responsive behavior */
+    @media (max-width: 1279px) {
+      .care-slider__overlay {
+        width: min(50%, 620px);
+        min-width: 320px;
+      }
+      .care-slider__title {
+        font-size: clamp(30px, 4vw, 54px);
+      }
+      .care-slider__desc {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 1023px) {
+      .care-slider__viewport {
+        min-height: 520px;
+        height: 66vw;
+      }
+      .care-slider__overlay {
+        width: 58%;
+        min-width: 280px;
+        padding: 28px 28px 30px 28px;
+      }
+      .care-slider__nav {
+        width: 52px;
+        height: 52px;
+      }
+      .care-slider__nav--prev { left: 14px; }
+      .care-slider__nav--next { right: 14px; }
+    }
+
+    @media (max-width: 767px) {
+      .care-slider__viewport {
+        min-height: 560px;
+        height: auto;
+      }
+
+      .care-slider__slide {
+        flex-direction: column;
+      }
+
+      .care-slider__image-wrap {
+        position: absolute;
+        inset: 0;
+      }
+
+      .care-slider__image-wrap::after {
+        background: linear-gradient(180deg, rgba(43,16,38,.15) 0%, rgba(43,16,38,.12) 36%, rgba(43,16,38,.25) 100%);
+      }
+
+      .care-slider__overlay {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        min-width: 0;
+        height: auto;
+        padding: 26px 22px 64px;
+        background: linear-gradient(180deg, rgba(77, 32, 66, 0.65) 0%, rgba(65, 27, 57, 0.94) 14%, rgba(65, 27, 57, 0.98) 100%);
+      }
+
+      .care-slider__content {
+        max-width: 100%;
+      }
+
+      .care-slider__eyebrow {
+        font-size: 12px;
+        margin-bottom: 12px;
+      }
+
+      .care-slider__title {
+        font-size: 30px;
+        line-height: 1.1;
+        margin-bottom: 12px;
+      }
+
+      .care-slider__desc {
+        font-size: 14px;
+        line-height: 1.7;
+        margin-bottom: 18px;
+      }
+
+      .care-slider__btn {
+        min-height: 48px;
+        padding: 0 22px;
+        font-size: 13px;
+        letter-spacing: .15em;
+      }
+
+      .care-slider__nav {
+        width: 46px;
+        height: 46px;
+        top: 44%;
+      }
+
+      .care-slider__nav i {
+        font-size: 15px;
+      }
+
+      .care-slider__counter {
+        right: 12px;
+        bottom: 12px;
+        font-size: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .care-slider__slide,
+      .care-slider__content,
+      .care-slider__btn,
+      .care-slider__nav,
+      .care-slider__progress-bar {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<section class="main-navigation-section one-col-section">
+  <div class="container-fluid">
+    <div class="row">
+      <article class="w-full col-wrapper flex flex-wrap items-center justify-between py-0">
+
+        <div class="care-slider" aria-label="CareGiver image slider">
+          <div class="care-slider__viewport">
+
+            <!-- Slide 1 -->
+            <div class="care-slider__slide is-active" data-title="Family Care at Home" data-desc="Dedicated home care solutions designed to support seniors, patients, and families with comfort, dignity, and compassion.">
+              <div class="care-slider__image-wrap">
+                <img class="care-slider__image" src="https://t.commonsupport.com/care-giver/images/main-slider/1.jpg" alt="CareGiver slider image 1">
+              </div>
+              <div class="care-slider__overlay">
+                <div class="care-slider__content">
+                  <div class="care-slider__eyebrow">Home Care Services</div>
+                  <h2 class="care-slider__title">Family Care at Home</h2>
+                  <p class="care-slider__desc">Dedicated home care solutions designed to support seniors, patients, and families with comfort, dignity, and compassion.</p>
+                  <div class="care-slider__actions">
+                    <a href="#" class="care-slider__btn care-slider__btn--primary">Our Services</a>
+                    <a href="#" class="care-slider__btn care-slider__btn--secondary">Contact Us</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="care-slider__slide" data-title="Professional Caregivers" data-desc="Experienced caregivers ready to provide personalized assistance, daily support, and trusted companionship.">
+              <div class="care-slider__image-wrap">
+                <img class="care-slider__image" src="https://t.commonsupport.com/care-giver/images/main-slider/2.jpg" alt="CareGiver slider image 2">
+              </div>
+              <div class="care-slider__overlay">
+                <div class="care-slider__content">
+                  <div class="care-slider__eyebrow">Trusted Support</div>
+                  <h2 class="care-slider__title">Professional Caregivers</h2>
+                  <p class="care-slider__desc">Experienced caregivers ready to provide personalized assistance, daily support, and trusted companionship.</p>
+                  <div class="care-slider__actions">
+                    <a href="#" class="care-slider__btn care-slider__btn--primary">Our Services</a>
+                    <a href="#" class="care-slider__btn care-slider__btn--secondary">Contact Us</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="care-slider__slide" data-title="Comfort and Assistance" data-desc="Reliable care that brings peace of mind through compassionate support, safety, and everyday assistance.">
+              <div class="care-slider__image-wrap">
+                <img class="care-slider__image" src="https://t.commonsupport.com/care-giver/images/main-slider/3.jpg" alt="CareGiver slider image 3">
+              </div>
+              <div class="care-slider__overlay">
+                <div class="care-slider__content">
+                  <div class="care-slider__eyebrow">Compassion First</div>
+                  <h2 class="care-slider__title">Comfort and Assistance</h2>
+                  <p class="care-slider__desc">Reliable care that brings peace of mind through compassionate support, safety, and everyday assistance.</p>
+                  <div class="care-slider__actions">
+                    <a href="#" class="care-slider__btn care-slider__btn--primary">Our Services</a>
+                    <a href="#" class="care-slider__btn care-slider__btn--secondary">Contact Us</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <button class="care-slider__nav care-slider__nav--prev" type="button" aria-label="Previous slide">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button class="care-slider__nav care-slider__nav--next" type="button" aria-label="Next slide">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+
+          <div class="care-slider__progress" aria-hidden="true">
+            <div class="care-slider__progress-bar"></div>
+          </div>
+
+          <div class="care-slider__counter" aria-hidden="true">
+            <span class="care-slider__current">01</span>/<span class="care-slider__total">03</span>
+          </div>
+        </div>
+
+      </article>
+    </div>
+  </div>
+</section>
+
+<script>
+  $(function () {
+    const $slider = $('.care-slider');
+    const $slides = $('.care-slider__slide');
+    const $current = $('.care-slider__current');
+    const $progress = $('.care-slider__progress-bar');
+    const total = $slides.length;
+
+    let index = 0;
+    let timer = null;
+    let isAnimating = false;
+    let progressTimer = null;
+
+    $('.care-slider__total').text(String(total).padStart(2, '0'));
+
+    function setCounter(i) {
+      $current.text(String(i + 1).padStart(2, '0'));
+    }
+
+    function resetProgress() {
+      clearInterval(progressTimer);
+      $progress.css('width', '0%');
+
+      let width = 0;
+      progressTimer = setInterval(function () {
+        width += 1;
+        if (width >= 100) {
+          clearInterval(progressTimer);
+          width = 100;
+        }
+        $progress.css('width', width + '%');
+      }, 45);
+    }
+
+    function animateOut($slide) {
+      $slide.addClass('is-exiting');
+      setTimeout(function () {
+        $slide.removeClass('is-exiting is-active');
+      }, 450);
+    }
+
+    function goTo(nextIndex) {
+      if (isAnimating || nextIndex === index) return;
+      isAnimating = true;
+
+      const $currentSlide = $slides.eq(index);
+      const $nextSlide = $slides.eq(nextIndex);
+
+      animateOut($currentSlide);
+      $nextSlide.addClass('is-active');
+      void $nextSlide[0].offsetWidth;
+      $nextSlide.addClass('is-active');
+
+      setTimeout(function () {
+        $slides.removeClass('is-active');
+        $nextSlide.addClass('is-active');
+        index = nextIndex;
+        setCounter(index);
+        resetProgress();
+        isAnimating = false;
+      }, 650);
+    }
+
+    function nextSlide() {
+      const nextIndex = (index + 1) % total;
+      goTo(nextIndex);
+    }
+
+    function prevSlide() {
+      const nextIndex = (index - 1 + total) % total;
+      goTo(nextIndex);
+    }
+
+    $('.care-slider__nav--next').on('click', function () {
+      nextSlide();
+      restartAutoplay();
+    });
+
+    $('.care-slider__nav--prev').on('click', function () {
+      prevSlide();
+      restartAutoplay();
+    });
+
+    function startAutoplay() {
+      timer = setInterval(nextSlide, 6000);
+      resetProgress();
+    }
+
+    function stopAutoplay() {
+      clearInterval(timer);
+      clearInterval(progressTimer);
+    }
+
+    function restartAutoplay() {
+      stopAutoplay();
+      startAutoplay();
+    }
+
+    $slider.on('mouseenter focusin', function () {
+      stopAutoplay();
+    });
+
+    $slider.on('mouseleave focusout', function () {
+      startAutoplay();
+    });
+
+    $slides.removeClass('is-active is-exiting');
+    $slides.eq(0).addClass('is-active');
+    setCounter(0);
+    startAutoplay();
+
+    $(document).on('keydown', function (e) {
+      if (e.key === 'ArrowLeft') {
+        prevSlide();
+        restartAutoplay();
+      }
+      if (e.key === 'ArrowRight') {
+        nextSlide();
+        restartAutoplay();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

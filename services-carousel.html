@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services Carousel</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --services-title: #163965;
+      --services-text: #8a8a8a;
+      --services-line: #caa68f;
+      --services-arrow-border: #c6c6c6;
+      --services-arrow-icon: #b9b9b9;
+      --services-arrow-hover: #a9a9a9;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; width: 100%; background: #ffffff; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #1b1b1b;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    img { display: block; max-width: 100%; }
+
+    .xxx-section.one-col-section { width: 100%; padding: 0; margin: 0; }
+
+    .service-carousel { padding: 34px 0 44px; background: #ffffff; }
+    .service-carousel .container {
+      width: 100%;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .service-carousel .row { width: 100%; margin: 0; }
+    .service-carousel__article { width: 100%; display: block; }
+
+    .service-carousel__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 44px;
+    }
+
+    .service-carousel__title {
+      margin: 0;
+      color: var(--services-title);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      line-height: 1.1;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .service-carousel__subtitle-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-top: 10px;
+    }
+
+    .service-carousel__subtitle {
+      margin: 0;
+      color: var(--services-text);
+      font-size: 18px;
+      line-height: 1.35;
+      font-weight: 400;
+    }
+
+    .service-carousel__line {
+      display: inline-block;
+      width: 68px;
+      height: 2px;
+      background: var(--services-line);
+      flex: 0 0 auto;
+      transform: translateY(1px);
+    }
+
+    .service-carousel__controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-top: 14px;
+      flex: 0 0 auto;
+    }
+
+    .service-carousel__control {
+      width: 54px;
+      height: 54px;
+      border: 2px solid var(--services-arrow-border);
+      background: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      cursor: pointer;
+      transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease, background-color .28s ease;
+      outline: none;
+    }
+
+    .service-carousel__control:hover {
+      transform: translateY(-1px);
+      border-color: var(--services-arrow-hover);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+    }
+
+    .service-carousel__control:active { transform: translateY(0); box-shadow: none; }
+    .service-carousel__control svg {
+      width: 18px;
+      height: 18px;
+      color: var(--services-arrow-icon);
+      transition: color .28s ease;
+    }
+    .service-carousel__control:hover svg { color: var(--services-arrow-hover); }
+
+    .service-carousel__viewport {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .service-carousel__track {
+      display: flex;
+      align-items: stretch;
+      will-change: transform;
+      transform: translate3d(0,0,0);
+      transition: transform 760ms cubic-bezier(0.22, 1, 0.36, 1);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    .service-carousel__slide {
+      flex: 0 0 25%;
+      min-width: 0;
+      padding-right: 14px;
+      padding-left: 14px;
+      box-sizing: border-box;
+    }
+
+    .service-carousel__card { width: 100%; height: 100%; display: flex; flex-direction: column; }
+    .service-carousel__image {
+      width: 100%;
+      aspect-ratio: 1.085 / 1;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+      background: #f1f1f1;
+    }
+
+    .service-carousel__content { padding-top: 22px; }
+
+    .service-carousel__card-title {
+      margin: 0 0 14px;
+      color: var(--services-title);
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 29px;
+      line-height: 1.08;
+      letter-spacing: -0.2px;
+    }
+
+    .service-carousel__card-text {
+      margin: 0;
+      color: #8f8f8f;
+      font-size: 18px;
+      line-height: 1.68;
+      font-weight: 400;
+    }
+
+    .service-carousel, .service-carousel * {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    .service-carousel__control[disabled] {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    @media (max-width: 1279px) {
+      .service-carousel { padding: 30px 0 40px; }
+      .service-carousel__header { margin-bottom: 34px; }
+      .service-carousel__title { font-size: 36px; }
+      .service-carousel__subtitle { font-size: 17px; }
+      .service-carousel__slide { flex-basis: 50%; }
+      .service-carousel__card-title { font-size: 28px; }
+      .service-carousel__card-text { font-size: 17px; line-height: 1.65; }
+      .service-carousel__control { width: 50px; height: 50px; }
+    }
+
+    @media (max-width: 767px) {
+      .service-carousel { padding: 26px 0 34px; }
+      .service-carousel .container { padding: 0 18px; }
+      .service-carousel__header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 26px;
+      }
+      .service-carousel__controls { padding-top: 0; margin-left: auto; }
+      .service-carousel__title { font-size: 30px; }
+      .service-carousel__subtitle-row { gap: 12px; }
+      .service-carousel__subtitle { font-size: 15px; }
+      .service-carousel__line { width: 54px; }
+      .service-carousel__slide { flex-basis: 100%; padding-right: 0; padding-left: 0; }
+      .service-carousel__card-title { font-size: 27px; margin-bottom: 10px; }
+      .service-carousel__card-text { font-size: 16px; line-height: 1.65; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .service-carousel__track,
+      .service-carousel__control,
+      .service-carousel__control svg {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="xxx-section one-col-section service-carousel">
+    <div class="container">
+      <div class="row">
+        <article class="w-full col-wrapper flex flex-wrap items-center justify-center service-carousel__article">
+          <div class="service-carousel__header w-full">
+            <div class="service-carousel__heading">
+              <h1 class="service-carousel__title">What Services We offer</h1>
+              <div class="service-carousel__subtitle-row">
+                <p class="service-carousel__subtitle">A dependable, compassionate presence you can trust.</p>
+                <span class="service-carousel__line"></span>
+              </div>
+            </div>
+
+            <div class="service-carousel__controls">
+              <button type="button" class="service-carousel__control service-carousel__control--prev" aria-label="Previous services">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M14.5 5L9 12l5.5 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <button type="button" class="service-carousel__control service-carousel__control--next" aria-label="Next services">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M9.5 5L15 12l-5.5 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="service-carousel__viewport w-full">
+            <div class="service-carousel__track" id="servicesCarouselTrack"></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function($){
+      const slidesData = [
+        { title: 'Elderly Care Service', image: 'https://t.commonsupport.com/care-giver/images/resource/service-1.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
+        { title: '24Hr/7 Days Support', image: 'https://t.commonsupport.com/care-giver/images/resource/service-2.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
+        { title: 'Medical Care', image: 'https://t.commonsupport.com/care-giver/images/resource/service-3.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
+        { title: 'Personal Care', image: 'https://t.commonsupport.com/care-giver/images/resource/service-4.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
+        { title: 'Companionship', image: 'https://t.commonsupport.com/care-giver/images/resource/service-5.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
+        { title: 'Nursing Assistance', image: 'https://t.commonsupport.com/care-giver/images/resource/service-6.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
+        { title: 'Home Support', image: 'https://t.commonsupport.com/care-giver/images/resource/service-7.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' }
+      ];
+
+      const $carousel = $('.service-carousel');
+      const $track = $('#servicesCarouselTrack');
+      const $prev = $('.service-carousel__control--prev');
+      const $next = $('.service-carousel__control--next');
+
+      const state = {
+        visible: 4,
+        cloneCount: 4,
+        realIndex: 0,
+        currentPosition: 4,
+        isAnimating: false,
+        isPaused: false,
+        autoplay: null,
+        resizeTimer: null,
+        rebuilding: false,
+        touchStartX: 0,
+        touchEndX: 0
+      };
+
+      function getVisibleCount() {
+        const w = window.innerWidth;
+        if (w >= 1280) return 4;
+        if (w >= 768) return 2;
+        return 1;
+      }
+
+      function cardMarkup(item) {
+        return `
+          <div class="service-carousel__slide">
+            <article class="service-carousel__card">
+              <img class="service-carousel__image" src="${item.image}" alt="${item.title}" loading="lazy" decoding="async">
+              <div class="service-carousel__content">
+                <h3 class="service-carousel__card-title">${item.title}</h3>
+                <p class="service-carousel__card-text">${item.text}</p>
+              </div>
+            </article>
+          </div>
+        `;
+      }
+
+      function setTransform(animate) {
+        if (animate === false) {
+          $track.css('transition', 'none');
+        } else {
+          $track.css('transition', 'transform 760ms cubic-bezier(0.22, 1, 0.36, 1)');
+        }
+        const slideWidth = 100 / state.visible;
+        const translate = -(state.currentPosition * slideWidth);
+        $track.css('transform', `translate3d(${translate}%,0,0)`);
+        if (animate === false) {
+          void $track[0].offsetHeight;
+          $track.css('transition', 'transform 760ms cubic-bezier(0.22, 1, 0.36, 1)');
+        }
+      }
+
+      function buildTrack() {
+        state.visible = getVisibleCount();
+        state.cloneCount = Math.min(state.visible, slidesData.length);
+
+        const headClones = slidesData.slice(-state.cloneCount).map(cardMarkup).join('');
+        const originals = slidesData.map(cardMarkup).join('');
+        const tailClones = slidesData.slice(0, state.cloneCount).map(cardMarkup).join('');
+        $track.html(headClones + originals + tailClones);
+
+        const basis = (100 / state.visible) + '%';
+        $track.children('.service-carousel__slide').css({
+          'flex-basis': basis,
+          'max-width': basis
+        });
+
+        state.currentPosition = state.cloneCount + state.realIndex;
+        setTransform(false);
+      }
+
+      function normalizeAfterTransition() {
+        const max = state.cloneCount + slidesData.length;
+        const min = state.cloneCount;
+
+        if (state.currentPosition >= max) {
+          state.currentPosition -= slidesData.length;
+          setTransform(false);
+        } else if (state.currentPosition < min) {
+          state.currentPosition += slidesData.length;
+          setTransform(false);
+        }
+        state.isAnimating = false;
+      }
+
+      function next() {
+        if (state.isAnimating) return;
+        state.isAnimating = true;
+        state.realIndex = (state.realIndex + 1) % slidesData.length;
+        state.currentPosition += 1;
+        setTransform(true);
+      }
+
+      function prev() {
+        if (state.isAnimating) return;
+        state.isAnimating = true;
+        state.realIndex = (state.realIndex - 1 + slidesData.length) % slidesData.length;
+        state.currentPosition -= 1;
+        setTransform(true);
+      }
+
+      function startAutoplay() {
+        stopAutoplay();
+        state.autoplay = window.setInterval(function(){
+          if (!state.isPaused && !state.rebuilding) {
+            next();
+          }
+        }, 4000);
+      }
+
+      function stopAutoplay() {
+        if (state.autoplay) {
+          window.clearInterval(state.autoplay);
+          state.autoplay = null;
+        }
+      }
+
+      function rebuild() {
+        if (state.rebuilding) return;
+        state.rebuilding = true;
+
+        const oldIndex = state.realIndex;
+        buildTrack();
+        state.realIndex = oldIndex;
+        state.currentPosition = state.cloneCount + state.realIndex;
+        setTransform(false);
+        state.rebuilding = false;
+        state.isAnimating = false;
+      }
+
+      function scheduleRebuild() {
+        window.clearTimeout(state.resizeTimer);
+        state.resizeTimer = window.setTimeout(rebuild, 120);
+      }
+
+      $next.on('click', next);
+      $prev.on('click', prev);
+
+      $track.on('transitionend webkitTransitionEnd oTransitionEnd', function(e){
+        if (e.target !== $track[0]) return;
+        normalizeAfterTransition();
+      });
+
+      $carousel.on('mouseenter focusin', function(){ state.isPaused = true; });
+      $carousel.on('mouseleave focusout', function(){ state.isPaused = false; });
+
+      $carousel.on('touchstart pointerdown', function(e){
+        const oe = e.originalEvent.touches ? e.originalEvent.touches[0] : e.originalEvent;
+        state.touchStartX = oe.clientX || 0;
+        state.touchEndX = state.touchStartX;
+        state.isPaused = true;
+      });
+
+      $carousel.on('touchmove pointermove', function(e){
+        const oe = e.originalEvent.touches ? e.originalEvent.touches[0] : e.originalEvent;
+        if (typeof oe.clientX === 'number') state.touchEndX = oe.clientX;
+      });
+
+      $carousel.on('touchend pointerup pointercancel', function(){
+        const diff = state.touchStartX - state.touchEndX;
+        const threshold = 50;
+        state.isPaused = false;
+        if (Math.abs(diff) > threshold) {
+          if (diff > 0) next();
+          else prev();
+        }
+      });
+
+      $(window).on('resize orientationchange', scheduleRebuild);
+      $(window).on('blur', function(){ state.isPaused = true; });
+      $(window).on('focus', function(){ state.isPaused = false; });
+
+      buildTrack();
+      startAutoplay();
+
+    })(jQuery);
+  </script>
+</body>
+</html>

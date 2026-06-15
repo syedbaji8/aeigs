@@ -1,0 +1,306 @@
+.main-slider-section,
+.main-slider-section .container-fluid,
+.main-slider-section .row,
+.main-slider-section article {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.slider-shell {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+    height: clamp(550px, 88vh, 550px);
+}
+.slider-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 700ms ease, transform 700ms ease;
+    transform: scale(1.02);
+    overflow: hidden;
+}
+.slide.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 2;
+    transform: scale(1);
+}
+.slide.leaving {
+    opacity: 0;
+    z-index: 1;
+    transform: scale(1.02);
+}
+.slide-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    transform: scale(1.04);
+    transition: transform 5s ease;
+}
+.slide.active .slide-bg {
+    transform: scale(1.0);
+}
+.left-panel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: min(46%, 720px);
+    min-width: 320px;
+    background: linear-gradient(135deg, #51194a 0%, #5b214f 45%, #4d1846 100%);
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    padding: clamp(24px, 4vw, 70px);
+}
+.left-panel::after {
+    content: "";
+    position: absolute;
+    right: -1px;
+    top: 0;
+    width: 220px;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(81, 25, 74, 1) 0%, rgba(81, 25, 74, 0.65) 56%, rgba(81, 25, 74, 0) 100%);
+    pointer-events: none;
+}
+.slide-copy {
+    position: relative;
+    z-index: 4;
+    max-width: 560px;
+    color: #fff;
+}
+.eyebrow {
+    font-size: clamp(14px, 1.4vw, 18px);
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 20px;
+}
+.title {
+    font-size: clamp(42px, 4.8vw, 78px);
+    line-height: 0.98;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.03em;
+    margin: 0 0 18px 0;
+    text-wrap: balance;
+}
+.subtitle {
+    font-size: clamp(16px, 1.25vw, 21px);
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.92);
+    max-width: 42ch;
+    margin-bottom: 34px;
+}
+.btn-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 34px;
+    border-radius: 9999px;
+    background: #d8a48d;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    box-shadow: 0 16px 28px rgba(0, 0, 0, 0.12);
+    transition: transform 220ms ease, background 220ms ease;
+    text-decoration: none;
+}
+.cta-btn:hover {
+    transform: translateY(-2px);
+    background: #c9927a;
+}
+.info-link {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+.slider-controls {
+    position: absolute;
+    right: 34px;
+    bottom: 34px;
+    z-index: 5;
+    display: flex;
+    gap: 12px;
+}
+.nav-btn {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.92);
+    color: #4e2a47;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: transform 220ms ease, background 220ms ease, color 220ms ease;
+}
+.nav-btn:hover {
+    transform: translateY(-2px);
+    background: #ffffff;
+    color: #d39f88;
+}
+.nav-btn i {
+    font-size: 16px;
+}
+.dots {
+    position: absolute;
+    left: 50%;
+    bottom: 28px;
+    transform: translateX(-50%);
+    z-index: 5;
+    display: flex;
+    gap: 10px;
+}
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 9999px;
+    border: 0;
+    background: rgba(255, 255, 255, 0.38);
+    cursor: pointer;
+    transition: width 240ms ease, background 240ms ease, transform 240ms ease;
+}
+.dot.active {
+    width: 28px;
+    background: #d8a48d;
+}
+.anim-wrap {
+    overflow: hidden;
+}
+.fly-in {
+    animation: flyIn 820ms cubic-bezier(.2, .8, .2, 1) both;
+}
+.fly-out {
+    animation: flyOut 520ms cubic-bezier(.4, 0, .2, 1) both;
+}
+.fly-in-delay-1 {
+    animation-delay: 70ms;
+}
+.fly-in-delay-2 {
+    animation-delay: 160ms;
+}
+.fly-in-delay-3 {
+    animation-delay: 250ms;
+}
+.fly-in-delay-4 {
+    animation-delay: 340ms;
+}
+@keyframes flyIn {
+    from {
+        opacity: 0;
+        transform: translateX(-48px);
+        filter: blur(2px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+        filter: blur(0);
+    }
+}
+@keyframes flyOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+        filter: blur(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(42px);
+        filter: blur(2px);
+    }
+}
+@media (max-width: 1023px) {
+    .left-panel {
+        width: min(56%, 620px);
+    }
+    .title {
+        font-size: clamp(36px, 5vw, 56px);
+    }
+    .subtitle {
+        max-width: 34ch;
+    }
+}
+@media (max-width: 767px) {
+    .slider-shell {
+        height: 78vh;
+        min-height: 540px;
+    }
+    .left-panel {
+        width: 100%;
+        min-width: 0;
+        align-items: flex-end;
+        padding: 24px 20px 84px;
+        background: linear-gradient(180deg, rgba(81, 25, 74, 0.12) 0%, rgba(81, 25, 74, 0.72) 55%, rgba(81, 25, 74, 0.96) 100%);
+    }
+    .left-panel::after {
+        width: 0;
+    }
+    .slide-copy {
+        max-width: none;
+    }
+    .eyebrow {
+        font-size: 12px;
+        letter-spacing: 0.18em;
+        margin-bottom: 12px;
+    }
+    .title {
+        font-size: clamp(30px, 8vw, 44px);
+        margin-bottom: 12px;
+    }
+    .subtitle {
+        font-size: 14px;
+        line-height: 1.7;
+        max-width: none;
+        margin-bottom: 22px;
+    }
+    .cta-btn {
+        padding: 13px 24px;
+        font-size: 12px;
+    }
+    .slider-controls {
+        right: 14px;
+        bottom: 14px;
+    }
+    .nav-btn {
+        width: 46px;
+        height: 46px;
+    }
+    .dots {
+        bottom: 15px;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .slide,
+    .slide-bg,
+    .nav-btn,
+    .dot,
+    .cta-btn {
+        transition: none !important;
+        animation: none !important;
+    }
+}
