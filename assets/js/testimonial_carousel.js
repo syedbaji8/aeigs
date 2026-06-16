@@ -4,31 +4,31 @@ $(function () {
       name: "Mark John",
       role: "CEO Falcon",
       image: "https://i.pravatar.cc/120?img=12",
-      text: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, psam volu ptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni dolorqui dolorem ipsum quia dolo."
+      text: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
     },
     {
       name: "Mark John",
       role: "CEO Falcon",
       image: "https://i.pravatar.cc/120?img=13",
-      text: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, psam volu ptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni dolorqui dolorem ipsum quia dolo."
+      text: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
     },
     {
       name: "Mark John",
       role: "CEO Falcon",
       image: "https://i.pravatar.cc/120?img=14",
-      text: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, psam volu ptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni dolorqui dolorem ipsum quia dolo."
+      text: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
     },
     {
       name: "Mark John",
       role: "CEO Falcon",
       image: "https://i.pravatar.cc/120?img=15",
-      text: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, psam volu ptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni dolorqui dolorem ipsum quia dolo."
+      text: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
     },
     {
       name: "Mark John",
       role: "CEO Falcon",
       image: "https://i.pravatar.cc/120?img=16",
-      text: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, psam volu ptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni dolorqui dolorem ipsum quia dolo."
+      text: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
     }
   ];
   const config = {
@@ -93,7 +93,7 @@ $(function () {
                             ${item.text}
                         </p>
                     </div>
-                    <div class="flex items-center mt-[70px]">
+                    <div class="flex items-center mt-[30px]">
                         <img src="${item.image}" alt="${item.name}"
                             class="w-[82px] h-[82px] rounded-full object-cover flex-shrink-0">
                         <div class="ml-[35px]">
@@ -101,25 +101,25 @@ $(function () {
                                 <h4 class="font-[Cormorant_Garamond]
                                            text-white
                                            font-bold
-                                           text-[18px]
-                                           lg:text-[30px]
+                                           text-[16px]
+                                           lg:text-[20px]
                                            leading-none">
                                     ${item.name}
                                 </h4>
                                 <span class="ml-3
                                              text-white
-                                             text-[14px]
-                                             lg:text-[14px]
+                                             text-[12px]
+                                             lg:text-[12px]
                                              font-medium">
                                     – ${item.role}
                                 </span>
                             </div>
                             <div class="flex gap-3 mt-5">
-                                <i class="fas fa-star text-[#f3ebe5] text-[24px]"></i>
-                                <i class="fas fa-star text-[#f3ebe5] text-[24px]"></i>
-                                <i class="fas fa-star text-[#f3ebe5] text-[24px]"></i>
-                                <i class="fas fa-star text-[#f3ebe5] text-[24px]"></i>
-                                <i class="fas fa-star text-[#f3ebe5] text-[24px]"></i>
+                                <i class="fas fa-star text-[#f3ebe5] text-[20px]"></i>
+                                <i class="fas fa-star text-[#f3ebe5] text-[20px]"></i>
+                                <i class="fas fa-star text-[#f3ebe5] text-[20px]"></i>
+                                <i class="fas fa-star text-[#f3ebe5] text-[20px]"></i>
+                                <i class="fas fa-star text-[#f3ebe5] text-[20px]"></i>
                             </div>
                         </div>
                     </div>
