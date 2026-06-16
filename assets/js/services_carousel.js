@@ -18,14 +18,14 @@
               Long-term home care`},
     {
       title: 'Diagnostic Test Collection',
-      image: 'assets/media/images/service-3.jpg',
+      image: 'assets/media/images/service-7.jpg',
       text: ` Blood sample collection at home <br/>
               Routine health checkups <br/>
               Lab test coordination <br/>
               Convenient and safe testing`},
     {
       title: 'Mother & Childcare Services',
-      image: 'assets/media/images/service-4.jpg',
+      image: 'assets/media/images/service-5.jpg',
       text: `Postnatal & Newborn care <br/>
               Lactation support <br/>
               Child growth monitoring <br/>
@@ -33,7 +33,7 @@
               Vaccination support` },
     {
       title: 'Personalized Healthcare',
-      image: 'assets/media/images/service-5.jpg',
+      image: 'assets/media/images/service-6.jpg',
       text: `Customized care plans <br/>
               Recovery monitoring <br/>
               Palliative care support <br/>
