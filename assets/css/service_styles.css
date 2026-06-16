@@ -150,7 +150,7 @@ img {
 }
 
 .service-carousel__card-title {
-    margin: 0 0 14px;
+    margin: 0 0 8px;
     color: var(--services-title);
     font-family: 'Cormorant Garamond', serif;
     font-weight: 700;

@@ -1,12 +1,53 @@
 (function ($) {
   const slidesData = [
-    { title: 'Elderly Care Service', image: 'assets/media/images/service-1.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
-    { title: '24Hr/7 Days Support', image: 'assets/media/images/service-2.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
-    { title: 'Medical Care', image: 'assets/media/images/service-3.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
-    { title: 'Personal Care', image: 'assets/media/images/service-4.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
-    { title: 'Companionship', image: 'assets/media/images/service-5.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
-    { title: 'Nursing Assistance', image: 'assets/media/images/service-6.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' },
-    { title: 'Home Support', image: 'assets/media/images/service-7.jpg', text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.' }
+    {
+      title: 'Skilled Nursing Care',
+      image: 'assets/media/images/service-1.jpg',
+      text: `Post-surgical care. <br/>
+              Wound dressing.<br/>
+              Medication administration.<br/>
+              Chronic disease management.<br/>
+              Elderly care support.` },
+    {
+      title: 'Professional Caregivers',
+      image: 'assets/media/images/service-2.jpg',
+      text: `Personal hygiene assistance <br/>
+              Mobility support <br/>
+              Daily living assistance <br/>
+              Companionship for seniors <br/>
+              Long-term home care`},
+    {
+      title: 'Diagnostic Test Collection',
+      image: 'assets/media/images/service-3.jpg',
+      text: ` Blood sample collection at home <br/>
+              Routine health checkups <br/>
+              Lab test coordination <br/>
+              Convenient and safe testing`},
+    {
+      title: 'Mother & Childcare Services',
+      image: 'assets/media/images/service-4.jpg',
+      text: `Postnatal & Newborn care <br/>
+              Lactation support <br/>
+              Child growth monitoring <br/>
+              Nutrition guidance <br/>
+              Vaccination support` },
+    {
+      title: 'Personalized Healthcare',
+      image: 'assets/media/images/service-5.jpg',
+      text: `Customized care plans <br/>
+              Recovery monitoring <br/>
+              Palliative care support <br/>
+              Patient-centered healthcare services`},
+    // {
+    //   title: 'Nursing Assistance',
+    //   image: 'assets/media/images/service-6.jpg',
+    //   text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.'
+    // },
+    // {
+    //   title: 'Home Support',
+    //   image: 'assets/media/images/service-7.jpg',
+    //   text: 'Leverage agile frameworks to provide a robust synopsis for high level overviews approaches.'
+    // }
   ];
 
   const $carousel = $('.service-carousel');
